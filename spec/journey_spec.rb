@@ -2,7 +2,6 @@ require 'journey'
 
 describe Journey do
   let(:entry_station) { instance_double Station, name: "Liverpool Street", zone: 1 }
-  let(:name) { instance_double Station, name: "Liverpool Street" }
   let(:exit_station) { instance_double Station, name: "Paddington Station", zone: 2 }
   let(:journey) {described_class.new(entry_station)}
 
