@@ -4,6 +4,7 @@ describe Oystercard do
   let(:oystercard) { Oystercard.new }
   let(:entry_station) { double :entry_station }
   let(:exit_station) { double :exit_station}
+  let(:journey) { double :journey}
 
   describe '#balance' do
     it 'should return the balance' do
