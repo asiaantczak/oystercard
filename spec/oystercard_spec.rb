@@ -41,11 +41,7 @@ describe '#touch_in' do
       subject.touch_in(entry_station)
       expect(subject).to be_in_journey
     end
-    it 'should remember the entry station' do
-      subject.touch_in(entry_station)
-      variable = subject.instance_variable_get(:@journey)[:entry_station]
-      expect(variable).to eq entry_station
-    end
+    
   end
 
 end
