@@ -19,4 +19,11 @@ describe Journey do
       expect(journey.end(exit_station)).to eq exit_station
     end
   end
+
+  describe '#complete?' do
+    it "checks if journey is complete" do
+      entry_station = nil or exit_station = nil
+      expect(journey.is_complete?).to be_falsy
+    end
+  end
 end
