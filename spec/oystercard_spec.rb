@@ -56,25 +56,18 @@ end
 
 describe '#touch_out' do
 
-  it 'should deduct minimum fare upon #touch_out' do
+  it 'should deduct minimum fare upon #touch_out if journey is complete' do
+    oystercard.instance_variable_set(:@balance, 20)
+    oystercard.touch_in(entry_station)
+    expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by(-Journey::MINIMUM_FARE)
+  end
+  it 'should store exit_station on touch_out' do
     subject.instance_variable_set(:@balance, 20)
     subject.touch_in(entry_station)
-    expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-1)
+    subject.touch_out(exit_station)
+    expect(subject.list_of_journeys.last[:exit]).to eq exit_station
   end
-  context 'touch out affects in_journey? method' do
-    before(:each) do
-      subject.instance_variable_set(:@balance, 20)
-      subject.touch_in(entry_station)
-    end
-    it 'should store exit_station on touch_out' do
-      subject.touch_out(exit_station)
-      expect(subject.list_of_journeys.last[:exit_station]).to eq exit_station
-    end
-    it 'should change in_journey? on touch_out' do
-      subject.touch_out(exit_station)
-      expect(subject).not_to be_in_journey
-    end
-  end
+
 end
 
   context 'touching in and out' do
