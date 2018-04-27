@@ -45,11 +45,6 @@ describe '#touch_in' do
     before(:each) do
       subject.instance_variable_set(:@balance, 20)
     end
-    it 'should change in_journey? on touch_in' do
-      subject.touch_in(entry_station)
-      expect(subject).to be_in_journey
-    end
-
   end
 
 end
@@ -61,6 +56,11 @@ describe '#touch_out' do
     oystercard.touch_in(entry_station)
     expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by(-Journey::MINIMUM_FARE)
   end
+
+  it 'should deduct penalty fare upon #touch_out if journey is incomplete' do
+    expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by(-Journey::PENALTY_FARE)
+  end
+
   it 'should store exit_station on touch_out' do
     subject.instance_variable_set(:@balance, 20)
     subject.touch_in(entry_station)

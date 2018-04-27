@@ -33,10 +33,6 @@ class Oystercard
     @journey = Journey.new
   end
 
-  def in_journey?
-      !@journey.nil?
-  end
-
 private
 
   def deduct(amount)
