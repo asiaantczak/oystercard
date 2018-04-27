@@ -34,6 +34,13 @@ describe '#touch_in' do
     expect { subject.touch_in(entry_station) }.to raise_error 'Insufficient funds for a journey'
   end
 
+  it 'deducts penalty fare on double touch in' do
+    oystercard.instance_variable_set(:@balance, 20)
+    oystercard.touch_in(entry_station)
+    expect { oystercard.touch_in(entry_station)}.to change { oystercard.balance }.by(-Journey::PENALTY_FARE)
+
+  end
+
   context 'changes caused by touch_in' do
     before(:each) do
       subject.instance_variable_set(:@balance, 20)
@@ -42,7 +49,7 @@ describe '#touch_in' do
       subject.touch_in(entry_station)
       expect(subject).to be_in_journey
     end
-    
+
   end
 
 end

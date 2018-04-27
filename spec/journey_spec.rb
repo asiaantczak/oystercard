@@ -3,11 +3,11 @@ require 'journey'
 describe Journey do
   let(:entry_station) { instance_double Station, name: "Liverpool Street", zone: 1 }
   let(:exit_station) { instance_double Station, name: "Paddington Station", zone: 2 }
-  let(:journey) {described_class.new(entry_station)}
+  let(:journey) { described_class.new }
 
-  describe '#initialize' do
+  describe '#start' do
     it 'stores an entry_station' do
-      expect(journey.entry_station).to eq entry_station
+      expect(journey.start(entry_station)).to eq entry_station
     end
   end
 
