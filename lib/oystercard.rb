@@ -1,7 +1,6 @@
 DEFAULT_BALANCE = 0
 MAX_LIMIT = 90
 MINIMUM_BALANCE = 1
-MINIMUM_CHARGE = 1
 
 class Oystercard
   attr_reader :balance, :list_of_journeys
@@ -21,7 +20,7 @@ class Oystercard
     raise 'Insufficient funds for a journey' if balance < MINIMUM_BALANCE
     if !!@journey.entry_station
       deduct(@journey.fare)
-      @list_of_journeys << { entry: @journey.entry_station, exit: @journey.exit_station }
+      add_journey
     end
     @journey.start(station)
   end
@@ -29,8 +28,7 @@ class Oystercard
   def touch_out(station)
     @journey.end(station)
     deduct(@journey.fare)
-    @list_of_journeys << { entry: @journey.entry_station, exit: @journey.exit_station }
-    @journey = Journey.new
+    add_journey
   end
 
 private
@@ -42,4 +40,10 @@ private
   def max_limit?(amount)
     @balance + amount > MAX_LIMIT
   end
+
+  def add_journey
+    @list_of_journeys << { entry: @journey.entry_station, exit: @journey.exit_station }
+    @journey = Journey.new
+  end
+
 end
