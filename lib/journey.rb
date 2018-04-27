@@ -12,11 +12,14 @@ attr_reader :entry_station, :exit_station
     @exit_station = exit_station
   end
 
+  def fare
+    is_complete? ? MINIMUM_FARE : PENALTY_FARE
+  end
+
+  private
+  
   def is_complete?
     !!@entry_station && !!@exit_station
   end
 
-  def fare
-    is_complete? ? MINIMUM_FARE : PENALTY_FARE
-  end
 end

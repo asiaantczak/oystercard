@@ -17,13 +17,6 @@ describe Journey do
     end
   end
 
-  describe '#complete?' do
-    it "checks if journey is complete" do
-      entry_station = nil or exit_station = nil
-      expect(journey.is_complete?).to be_falsy
-    end
-  end
-
   describe  '#calculate_fare' do
     it "calculates fare for the journey if it is complete" do
       allow(subject).to receive(:is_complete?) { true }
